@@ -25,4 +25,4 @@ _test:
 	@$(BIN_DIR)/$(TARGET_TEST)
 
 clean:
-	@rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(TARGET)
+	@rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(TARGET) $(BIN_DIR)/$(TARGET_TEST)
