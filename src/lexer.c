@@ -101,7 +101,6 @@ void find_next_token() {
     default:
       if (valid_identifier_char()) {
         start_token(tIDENTIFIER);
-        advance_token();
       }
   }
 }
@@ -136,7 +135,7 @@ bool valid_identifier_char() {
 
 void start_token(TokenType type) {
   lexer->curr_type = type;
-  lexer->curr_start_pos = lexer->curr_pos;
+  lexer->curr_start_pos = lexer->curr_end_pos = lexer->curr_pos;
   lexer->in_token = true;
 }
 
@@ -165,10 +164,11 @@ void add_token() {
 Token* new_token() {
   Token* token = (Token*)malloc(sizeof(Token));
   token->start = lexer->curr_start_pos;
+  token->end = lexer->curr_end_pos;
   token->lineno = lexer->curr_lineno;
   token->next = NULL;
   token->previous = NULL;
-  int token_length = lexer->curr_end_pos - lexer->curr_start_pos;
+  int token_length = lexer->curr_end_pos - lexer->curr_start_pos+1;
   token->value = (char *)malloc(sizeof(char) * token_length+1);
   token->value[token_length] = 0;
   strncpy(token->value, lexer->code+lexer->curr_start_pos, token_length);

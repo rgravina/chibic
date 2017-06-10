@@ -7,6 +7,7 @@ typedef struct token {
   TokenType type;
   unsigned long lineno;
   unsigned long start;
+  unsigned long end;
   struct token* next;
   struct token* previous;
 } Token;
