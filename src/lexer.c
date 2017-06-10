@@ -107,17 +107,17 @@ void find_next_token() {
 }
 
 void process_token() {
-    switch(lexer->curr_type) {
-      case tIDENTIFIER:
-        if (!valid_identifier_char()) {
-          add_token();
-        } else {
-          advance_token();
-        }
-        break;
-      default:
-        break;
-    }
+  switch(lexer->curr_type) {
+    case tIDENTIFIER:
+      if (!valid_identifier_char()) {
+        add_token();
+      } else {
+        advance_token();
+      }
+      break;
+    default:
+      break;
+  }
 }
 
 char peek() {
