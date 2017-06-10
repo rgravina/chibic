@@ -1,0 +1,6 @@
+# specific to this project
+bin/chibic*
+bin/*.o
+
+### OSX ###
+.DS_Store
