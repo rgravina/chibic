@@ -10,7 +10,7 @@ The [tapc](https://github.com/zorgnax/libtap) library is used for unit testing.
 
 This simple C program was used to drive a simple pass through the lexer, parser and code generator.
 
-```
+```c
 int main() {
   return 0;
 }
