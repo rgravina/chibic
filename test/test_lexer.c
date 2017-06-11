@@ -10,12 +10,12 @@ void check_token(int lineno, int start, int end, TokenType type, char* value) {
   is(token->value, value);
 }
 
-void test_lexer_type() {
+void test_lexer_int() {
   char* code = "int";
   cc_init_lexer(code);
   cc_lexer_lex();
   ok(lexer->num_tokens == 1);
-  check_token(1, 0, 2, tTYPE, "int");
+  check_token(1, 0, 2, tKEYWORD, "int");
   cc_free_lexer();
 }
 
@@ -28,12 +28,12 @@ void test_lexer_identifier() {
   cc_free_lexer();
 }
 
-void test_lexer_type_and_identifier() {
+void test_lexer_int_and_identifier() {
   char* code = "int main";
   cc_init_lexer(code);
   cc_lexer_lex();
   ok(lexer->num_tokens == 2);
-  check_token(1, 0, 2, tTYPE, "int");
+  check_token(1, 0, 2, tKEYWORD, "int");
   check_token(1, 4, 7, tIDENTIFIER, "main");
   cc_free_lexer();
 }
@@ -59,9 +59,9 @@ void test_lexer_braces() {
 }
 
 void cc_run_lexer_tests() {
-  test_lexer_type();
+  test_lexer_int();
   test_lexer_identifier();
-  test_lexer_type_and_identifier();
+  test_lexer_int_and_identifier();
   test_lexer_parens();
   test_lexer_braces();
 }

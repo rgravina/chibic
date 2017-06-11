@@ -204,17 +204,17 @@ Token* new_token() {
   strncpy(token->value, lexer->code+lexer->curr_start_pos, token_length);
   token->type = lexer->curr_type;
   if (token->type == tIDENTIFIER && is_keyword(token)) {
-    token->type = tTYPE;
+    token->type = tKEYWORD;
   }
   return token;
 }
 
 static const char *TypeString[] = {
-  "None", "Type", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace"
+  "None", "Keyword", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace"
 };
 
 #define NUM_KEYWORDS 1
-static char* KEYWORDS[NUM_KEYWORDS] = {"int"};
+static char* KEYWORDS[NUM_KEYWORDS] = {"int", "return"};
 
 bool is_keyword(Token* token) {
   char* value = token->value;
