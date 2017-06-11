@@ -19,6 +19,15 @@ void test_lexer_int() {
   cc_free_lexer();
 }
 
+void test_lexer_return() {
+  char* code = "return";
+  cc_init_lexer(code);
+  cc_lexer_lex();
+  ok(lexer->num_tokens == 1);
+  check_token(1, 0, 5, tKEYWORD, "return");
+  cc_free_lexer();
+}
+
 void test_lexer_identifier() {
   char* code = "main";
   cc_init_lexer(code);
@@ -64,4 +73,5 @@ void cc_run_lexer_tests() {
   test_lexer_int_and_identifier();
   test_lexer_parens();
   test_lexer_braces();
+  test_lexer_return();
 }

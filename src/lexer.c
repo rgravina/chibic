@@ -213,7 +213,7 @@ static const char *TypeString[] = {
   "None", "Keyword", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace"
 };
 
-#define NUM_KEYWORDS 1
+#define NUM_KEYWORDS 2
 static char* KEYWORDS[NUM_KEYWORDS] = {"int", "return"};
 
 bool is_keyword(Token* token) {
