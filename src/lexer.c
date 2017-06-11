@@ -8,10 +8,11 @@
 bool should_abort_now();
 char peek();
 void pushback();
-bool valid_identifier_char();
 
 // token inspection
 static void print_token(Token* token);
+bool valid_identifier_char();
+bool is_keyword(Token* token);
 
 // token creation and processing
 Token* new_token();
@@ -20,11 +21,14 @@ void process_token();
 void advance_token();
 void find_next_token();
 void start_token(TokenType type);
-bool is_keyword(Token* token);
+
+/*
+ * Lexer lifecyle functions
+ */
 
 // used for iterating through the tokens from outside
-static Token* curr_token;
 static bool started_walking;
+static Token* curr_token;
 
 void cc_init_lexer(char* code) {
   lexer = (Lexer*)malloc(sizeof(Lexer));
@@ -53,6 +57,10 @@ void cc_free_lexer() {
   curr_token = NULL;
 }
 
+/*
+ * Lexer movement
+ */
+
 Token* cc_next_token() {
   if (curr_token == NULL && !started_walking) {
     curr_token = lexer->head;
@@ -62,6 +70,10 @@ Token* cc_next_token() {
   }
   return curr_token;
 }
+
+/*
+ * Lexing
+ */
 
 void cc_lexer_lex() {
   while (lexer->curr_pos < strlen(lexer->code)) {
@@ -94,15 +106,14 @@ bool should_abort_now() {
   }
 }
 
-void find_next_token() {
-  switch(lexer->curr_char) {
-    case ' ': case '\t': case '\f': case '\r': case '\13':
-      break;
-    default:
-      if (valid_identifier_char()) {
-        start_token(tIDENTIFIER);
-      }
-  }
+char peek() {
+  return lexer->code[lexer->curr_pos+1];
+}
+
+void pushback() {
+  lexer->in_token = false;
+  lexer->curr_type = tNONE;
+  lexer->curr_pos--;
 }
 
 void process_token() {
@@ -119,14 +130,15 @@ void process_token() {
   }
 }
 
-char peek() {
-  return lexer->code[lexer->curr_pos+1];
-}
-
-void pushback() {
-  lexer->in_token = false;
-  lexer->curr_type = tNONE;
-  lexer->curr_pos--;
+void find_next_token() {
+  switch(lexer->curr_char) {
+    case ' ': case '\t': case '\f': case '\r': case '\13':
+      break;
+    default:
+      if (valid_identifier_char()) {
+        start_token(tIDENTIFIER);
+      }
+  }
 }
 
 bool valid_identifier_char() {
