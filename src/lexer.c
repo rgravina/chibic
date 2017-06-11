@@ -141,6 +141,12 @@ void find_next_token() {
     case ')':
       add_single_character_token(tRPAREN);
       break;
+    case '{':
+      add_single_character_token(tLBRACE);
+      break;
+    case '}':
+      add_single_character_token(tRBRACE);
+      break;
     default:
       if (valid_identifier_char()) {
         start_token(tIDENTIFIER);
@@ -204,7 +210,7 @@ Token* new_token() {
 }
 
 static const char *TypeString[] = {
-  "None", "Type", "Identifier", "Left Paren", "Right Paren"
+  "None", "Type", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace"
 };
 
 #define NUM_KEYWORDS 1
