@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-typedef enum tokenType {tNONE, tTYPE, tIDENTIFIER} TokenType;
+typedef enum tokenType {tNONE, tTYPE, tIDENTIFIER, tLPAREN, tRPAREN} TokenType;
 
 typedef struct token {
   char* value;

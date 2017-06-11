@@ -38,8 +38,20 @@ void test_lexer_type_and_identifier() {
   cc_free_lexer();
 }
 
+void test_lexer_parens() {
+  char* code = "()";
+  cc_init_lexer(code);
+  cc_lexer_lex();
+  ok(lexer->num_tokens == 2);
+  check_token(1, 0, 0, tLPAREN, "(");
+  check_token(1, 1, 1, tRPAREN, ")");
+  cc_free_lexer();
+}
+
+
 void cc_run_lexer_tests() {
   test_lexer_type();
   test_lexer_identifier();
   test_lexer_type_and_identifier();
+  test_lexer_parens();
 }

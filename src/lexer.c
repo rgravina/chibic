@@ -17,6 +17,7 @@ bool is_keyword(Token* token);
 // token creation and processing
 Token* new_token();
 void add_token();
+void add_single_character_token(TokenType type);
 void process_token();
 void advance_token();
 void find_next_token();
@@ -134,6 +135,12 @@ void find_next_token() {
   switch(lexer->curr_char) {
     case ' ': case '\t': case '\f': case '\r': case '\13':
       break;
+    case '(':
+      add_single_character_token(tLPAREN);
+      break;
+    case ')':
+      add_single_character_token(tRPAREN);
+      break;
     default:
       if (valid_identifier_char()) {
         start_token(tIDENTIFIER);
@@ -153,6 +160,11 @@ void start_token(TokenType type) {
 
 void advance_token() {
   lexer->curr_end_pos++;
+}
+
+void add_single_character_token(TokenType type) {
+  start_token(type);
+  add_token();
 }
 
 void add_token() {
@@ -192,7 +204,7 @@ Token* new_token() {
 }
 
 static const char *TypeString[] = {
-  "Type", "Identifier"
+  "None", "Type", "Identifier", "Left Paren", "Right Paren"
 };
 
 #define NUM_KEYWORDS 1
@@ -209,5 +221,5 @@ bool is_keyword(Token* token) {
 }
 
 static void print_token(Token* token) {
-  printf("-- token %s '%s' at (%lu, %lu)\n", TypeString[token->type], token->value, token->lineno, token->start);
+  printf("-- token %s '%s' line: %lu, start: %lu, end: %lu\n", TypeString[token->type], token->value, token->lineno, token->start, token->end);
 }
