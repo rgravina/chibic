@@ -12,6 +12,7 @@ void pushback();
 // token inspection
 static void print_token(Token* token);
 bool valid_identifier_char();
+bool valid_integer_char();
 bool is_keyword(Token* token);
 
 // token creation and processing
@@ -113,14 +114,22 @@ char peek() {
 
 void pushback() {
   lexer->in_token = false;
-  lexer->curr_type = tNONE;
   lexer->curr_pos--;
 }
 
 void process_token() {
   switch(lexer->curr_type) {
+    case tINTEGER:
+      if (!valid_integer_char()) {
+        pushback();
+        add_token();
+      } else {
+        advance_token();
+      }
+      break;
     case tIDENTIFIER:
       if (!valid_identifier_char()) {
+        pushback();
         add_token();
       } else {
         advance_token();
@@ -133,6 +142,10 @@ void process_token() {
 
 void find_next_token() {
   switch(lexer->curr_char) {
+    case '0': case '1': case '2': case '3': case '4':
+    case '5': case '6': case '7': case '8': case '9':
+      start_token(tINTEGER);
+      break;
     case ' ': case '\t': case '\f': case '\r': case '\13':
       break;
     case '(':
@@ -147,6 +160,9 @@ void find_next_token() {
     case '}':
       add_single_character_token(tRBRACE);
       break;
+    case ';':
+      add_single_character_token(tSEMICOLON);
+      break;
     default:
       if (valid_identifier_char()) {
         start_token(tIDENTIFIER);
@@ -156,6 +172,10 @@ void find_next_token() {
 
 bool valid_identifier_char() {
   return isalpha(lexer->curr_char);
+}
+
+bool valid_integer_char() {
+  return isdigit(lexer->curr_char);
 }
 
 void start_token(TokenType type) {
@@ -210,7 +230,7 @@ Token* new_token() {
 }
 
 static const char *TypeString[] = {
-  "None", "Keyword", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace"
+  "None", "Keyword", "Identifier", "Left Paren", "Right Paren", "Left Brace", "Right Brace", "Integer", "Semicolon"
 };
 
 #define NUM_KEYWORDS 2

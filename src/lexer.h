@@ -1,7 +1,7 @@
 #include <stdbool.h>
 
 typedef enum tokenType {
-  tNONE, tKEYWORD, tIDENTIFIER, tLPAREN, tRPAREN, tLBRACE, tRBRACE
+  tNONE, tKEYWORD, tIDENTIFIER, tLPAREN, tRPAREN, tLBRACE, tRBRACE, tINTEGER, tSEMICOLON
 } TokenType;
 
 typedef struct token {
