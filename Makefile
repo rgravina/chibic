@@ -24,10 +24,13 @@ test: clean _test
 _chibic:
 	@$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SRC_FILES) src/main.c -o $(BIN_DIR)/$(TARGET)
 	@$(BIN_DIR)/$(TARGET)
+	@as $(BIN_DIR)/out.s -o $(BIN_DIR)/out.o
+	@ld -e _main -o $(BIN_DIR)/out $(BIN_DIR)/out.o
+	@$(BIN_DIR)/out;echo $$?
 
 _test:
 	@$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SRC_FILES_TEST) -o $(BIN_DIR)/$(TARGET_TEST)
 	@$(BIN_DIR)/$(TARGET_TEST)
 
 clean:
-	@rm -f $(BIN_DIR)/*.o $(BIN_DIR)/$(TARGET) $(BIN_DIR)/$(TARGET_TEST)
+	@rm -f $(BIN_DIR)/*.o $(BIN_DIR)/*.s $(BIN_DIR)/$(TARGET) $(BIN_DIR)/$(TARGET_TEST) bin/out

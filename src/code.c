@@ -14,12 +14,13 @@ void cc_generate_code(bool write_to_file) {
 }
 
 void write_file() {
-    FILE *out = fopen("out.s", "wb");
-    fprintf(out, ".section __TEXT,__text\n");
-    fprintf(out, "    .globl _main\n\n");
+    FILE *out = fopen("bin/out.s", "wb");
+    fprintf(out, "        .section __TEXT,__text,regular,pure_instructions\n");
+    fprintf(out, "        .macosx_version_min 10, 12\n");
+    fprintf(out, "        .globl _main\n\n");
     fprintf(out, "_main:\n");
-    fprintf(out, "    movl    $0x2000001, %%eax\n");
-    fprintf(out, "    movl    $0, %%ebx\n");
-    fprintf(out, "    syscall\n");
+    fprintf(out, "        movl    $0x2000001, %%eax\n");
+    fprintf(out, "        movl    $0, %%ebx\n");
+    fprintf(out, "        syscall\n");
     fclose(out);
 }
