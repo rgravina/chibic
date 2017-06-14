@@ -37,13 +37,13 @@ void test_lexer_identifier() {
   cc_free_lexer();
 }
 
-void test_lexer_int_and_identifier() {
-  char* code = "int main";
+void test_lexer_int_newline_and_identifier() {
+  char* code = "int\nmain";
   cc_init_lexer(code);
   cc_lexer_lex();
   ok(lexer->num_tokens == 2);
   check_token(1, 0, 2, tKEYWORD, "int");
-  check_token(1, 4, 7, tIDENTIFIER, "main");
+  check_token(2, 0, 3, tIDENTIFIER, "main");
   cc_free_lexer();
 }
 
@@ -105,7 +105,7 @@ void test_lexer_simple_program() {
 void cc_run_lexer_tests() {
   test_lexer_int();
   test_lexer_identifier();
-  test_lexer_int_and_identifier();
+  test_lexer_int_newline_and_identifier();
   test_lexer_parens();
   test_lexer_braces();
   test_lexer_return();

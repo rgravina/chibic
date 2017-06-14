@@ -42,6 +42,7 @@ void cc_init_lexer(char* code) {
   lexer->num_tokens = 0;
   lexer->curr_lineno = 1;
   lexer->curr_pos = 0;
+  lexer->newline_last_seen_pos = 0;
   lexer->curr_start_pos = 0;
   lexer->curr_end_pos = 0;
   started_walking = false;
@@ -161,6 +162,10 @@ void find_next_token() {
       break;
     case ' ': case '\t': case '\f': case '\r': case '\13':
       break;
+    case '\n':
+      lexer->newline_last_seen_pos = lexer->curr_pos+1;
+      lexer->curr_lineno++;
+      break;
     case '(':
       add_single_character_token(tLPAREN);
       break;
@@ -226,8 +231,9 @@ void add_token() {
 
 Token* new_token() {
   Token* token = (Token*)malloc(sizeof(Token));
-  token->start = lexer->curr_start_pos;
-  token->end = lexer->curr_end_pos;
+  token->lineno = lexer->curr_lineno;
+  token->start = (lexer->curr_start_pos - lexer->newline_last_seen_pos);
+  token->end = (lexer->curr_end_pos - lexer->newline_last_seen_pos);
   token->lineno = lexer->curr_lineno;
   token->next = NULL;
   token->previous = NULL;

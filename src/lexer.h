@@ -27,6 +27,7 @@ typedef struct lexer {
   unsigned long curr_pos;
   unsigned long num_tokens;
   unsigned long curr_lineno;
+  unsigned long newline_last_seen_pos;
   unsigned long curr_start_pos;
   unsigned long curr_end_pos;
 } Lexer;
