@@ -1,4 +1,6 @@
 #include <stdbool.h>
+#ifndef __LEXER_H__
+#define __LEXER_H__
 
 typedef enum tokenType {
   tNONE, tKEYWORD, tIDENTIFIER, tLPAREN, tRPAREN, tLBRACE, tRBRACE, tINTEGER, tSEMICOLON
@@ -39,3 +41,5 @@ void cc_lexer_lex();
 Token* cc_next_token();
 Token* cc_curr_token();
 Token* cc_previous_token();
+
+#endif

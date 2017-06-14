@@ -62,40 +62,47 @@ void parse_function() {
 }
 
 void parse_type() {
+  cc_next_token();
 }
 
 void parse_identifier() {
+  cc_next_token();
 }
 
 void parse_left_paren() {
+  cc_next_token();
 }
 
 void parse_right_paren() {
+  cc_next_token();
 }
 
 void parse_left_brace() {
+  cc_next_token();
 }
 
 void parse_expression() {
-}
-
-void parse_right_brace() {
   parse_return();
   parse_integer();
   parse_colon();
 }
 
-void parse_return() {
+void parse_right_brace() {
+  cc_next_token();
+}
 
+void parse_return() {
+  cc_next_token();
 }
 
 void parse_integer() {
-  cc_node_add_node(nINTEGER);
+  Token* token = cc_curr_token();
+  cc_node_add_node(nINTEGER, token);
   cc_node_commit();
+  cc_next_token();
 }
 
 void parse_colon() {
-
 }
 
 void print_token(Token* token) {

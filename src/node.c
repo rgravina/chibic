@@ -21,10 +21,11 @@ void cc_node_init(bool debug) {
   tempNodeTail = NULL;
 }
 
-void cc_node_add_node(NodeType type) {
+void cc_node_add_node(NodeType type, Token* token) {
   // TODO: implement this properly. For now just replacing the old node.
   Node* node = (Node*)malloc(sizeof(Node));
   node->type = type;
+  node->token = token;
   node->next = NULL;
   if (tempNodeRoot == NULL) {
     tempNodeRoot = tempNodeTail = node;
@@ -34,6 +35,7 @@ void cc_node_add_node(NodeType type) {
   }
   if (tree->debug) {
     printf("adding node: %s\n", TypeString[type]);
+    printf("      value: %s\n", node->token->value);
   }
 }
 

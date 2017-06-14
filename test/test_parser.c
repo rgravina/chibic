@@ -7,7 +7,6 @@
 void test_parser() {
   char* code = "int main() {return 0;}";
   cc_init_parser(code);
-  parser->debug = true;
   cc_parser_parse();
   cc_free_parser();
 }
