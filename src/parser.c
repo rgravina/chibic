@@ -5,6 +5,8 @@
 #include "parser.h"
 #include "node.h"
 
+void parse();
+
 void cc_init_parser(char* code) {
   cc_init_lexer(code);
   parser = (Parser*)malloc(sizeof(Parser));
@@ -14,6 +16,7 @@ void cc_init_parser(char* code) {
 
 void cc_parser_parse() {
   cc_lexer_lex();
+  parse();
 }
 
 void cc_free_parser() {
@@ -28,6 +31,10 @@ void cc_free_parser() {
 // expression:
 // 	RETURN NUMBER ';'
 // 	;
+
+void parse() {
+  cc_next_token();
+}
 
 void print_token(Token* token) {
   if (parser->debug == true) {
