@@ -56,3 +56,18 @@ void cc_node_commit() {
   }
   tempNodeRoot = tempNodeTail = NULL;
 }
+
+void cc_node_print_tree() {
+  if (tree->root == NULL) {
+    puts("No nodes.");
+  } else {
+    puts("\n=== NODES ===");
+    Node* node = tree->root;
+    while(node != NULL) {
+      printf("node:   %s\n", TypeString[node->type]);
+      printf("value:  %s\n", node->token->value);
+      node = node->next;
+    }
+  }
+  printf("%c", '\n');
+}
