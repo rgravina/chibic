@@ -38,3 +38,4 @@ void cc_free_lexer();
 void cc_lexer_lex();
 Token* cc_next_token();
 Token* cc_curr_token();
+Token* cc_previous_token();

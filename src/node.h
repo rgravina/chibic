@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-typedef enum nodeType {nFUNCTION, nEXPRESSION} NodeType;
+typedef enum nodeType {nINTEGER} NodeType;
 typedef struct node {
   NodeType type;
   struct node* next;
@@ -14,3 +14,7 @@ typedef struct nodeTree {
 
 // node root
 NodeTree* tree;
+
+void cc_node_init(bool debug);
+void cc_node_add_node(NodeType type);
+void cc_node_commit();

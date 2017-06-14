@@ -73,6 +73,19 @@ Token* cc_next_token() {
   return curr_token;
 }
 
+Token* cc_curr_token() {
+  return curr_token;
+}
+
+Token* cc_previous_token() {
+  if (curr_token == NULL) {
+    return NULL;
+  } else {
+    curr_token = curr_token->previous;
+  }
+  return curr_token;
+}
+
 /*
  * Lexing
  */
