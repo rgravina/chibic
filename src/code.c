@@ -7,8 +7,10 @@
 
 void write_file();
 
-void cc_generate_code() {
-  write_file();
+void cc_generate_code(bool write_to_file) {
+  if (write_to_file) {
+    write_file();
+  }
 }
 
 void write_file() {

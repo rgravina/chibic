@@ -8,7 +8,7 @@ void test_code() {
   char* code = "int main() {return 0;}";
   cc_init_parser(code);
   cc_parser_parse();
-  cc_generate_code();
+  cc_generate_code(false);
   cc_free_parser();
 }
 
